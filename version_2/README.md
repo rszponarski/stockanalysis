@@ -3,6 +3,9 @@
 This Python script downloads historical stock data for CD Projekt
 from the Warsaw Stock Exchange (GPW) using Yahoo Finance API.
 
+REV.00A
+
+Regarding ver. 1 added functionality displaying the trading volume on the chart.
 ## Requirements
 
 - Python 3.x
@@ -10,8 +13,10 @@ from the Warsaw Stock Exchange (GPW) using Yahoo Finance API.
 - matplotlib
 - tkinter
 
-## Usage
+to be updated...
 
+## Usage
+to be updated...
 1. Clone the repository:
     ```sh
     git clone https://github.com/rszponarski/stockanalysis.git
