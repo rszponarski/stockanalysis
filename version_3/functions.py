@@ -48,3 +48,14 @@ def stock_market_data(start_date, end_date, interval, show_volume=False):
         plt.show()
     except Exception as exc:
         showerror("Error", str(exc))
+
+def get_preset_dates(option):
+    end_date = datetime.datetime.now()
+    if option == 1:  # Last week
+        start_date = end_date - datetime.timedelta(weeks=1)
+    elif option == 2:  # Last month
+        start_date = end_date - datetime.timedelta(days=30)
+    elif option == 3:  # Last quarter
+        start_date = end_date - datetime.timedelta(days=90)
+    return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
+
