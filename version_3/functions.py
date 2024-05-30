@@ -1,23 +1,19 @@
+import os
 import pandas as pd
-import time
 import datetime
+import yfinance as yf
 
-def download_data(start_date, end_date, interval):
+def download_data():
     try:
-        start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-        end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-        start_date_converted = int(time.mktime(start_date.timetuple()))
-        end_date_converted = int(time.mktime(end_date.timetuple()))
+        if not os.path.exists('stock_data.csv'):  # plik z danymi istnieje?
+            # Pobranie danych przy użyciu yfinance
+            stock_data = yf.download('CDR.WA', period='10y', interval='1d')
 
-        html_string = (f'https://query1.finance.yahoo.com/v7/finance/download/CDR.WA?'
-                        f'period1={start_date_converted}&period2={end_date_converted}&interval={interval}&events=history&includeAdjustedClose=true')
-
-        df = pd.read_csv(html_string)
-        df['Date'] = pd.to_datetime(df['Date'])
-
-        return df
+            # Zapisanie danych do pliku CSV
+            stock_data.to_csv('stock_data.csv')
     except Exception as exc:
         raise exc
+
 
 def process_data(data):
     try:
@@ -25,3 +21,4 @@ def process_data(data):
         pass
     except Exception as exc:
         raise exc
+
