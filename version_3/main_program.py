@@ -1,13 +1,49 @@
-from tkinter import Tk, Label, Entry, Button, StringVar, Checkbutton
-from functions import stock_market_data
-from tkinter import BooleanVar
+import matplotlib.pyplot as plt
+from tkinter import Tk, Label, Entry, Button, StringVar, Checkbutton, BooleanVar
+from tkinter.messagebox import showerror
+from functions import download_data, process_data
 
 
 def input_data():
     start_date = start_date_var.get()
     end_date = end_date_var.get()
     interval = interval_var.get()
-    stock_market_data(start_date, end_date, interval, volume_checkbox_var.get())
+
+    try:
+        data = download_data(start_date, end_date, interval)
+        process_data(data)
+
+        if volume_checkbox_var.get():
+            plt.figure(figsize=(12, 6))
+            ax1 = plt.subplot(2, 1, 1)
+            ax1.plot(data['Date'], data['Close'], label='Close Price')
+            ax1.set_xlabel('Date')
+            ax1.set_ylabel('Price')
+            ax1.set_title('CD Projekt Red Stock Price')
+            ax1.legend()
+            ax1.grid(True)
+
+            ax2 = plt.subplot(2, 1, 2)
+            ax2.bar(data['Date'], data['Volume'], color='blue', alpha=0.5, label='Volume')
+            ax2.set_xlabel('Date')
+            ax2.set_ylabel('Volume')
+            ax2.legend()
+            ax2.grid(True)
+
+            plt.tight_layout()
+            plt.show()
+        else:
+            plt.figure(figsize=(10, 5))
+            plt.plot(data['Date'], data['Close'], label='Close Price')
+            plt.xlabel('Date')
+            plt.xticks(rotation=45)
+            plt.ylabel('Price')
+            plt.title('CD Projekt Red Stock Price')
+            plt.legend()
+            plt.grid(True)
+            plt.show()
+    except Exception as exc:
+        showerror("Error", str(exc))
 
 
 root = Tk()
@@ -25,21 +61,12 @@ Label(root, text="Interval (1d, 1wk, 1mo):").grid(row=2, column=0)
 interval_var = StringVar(value='1d')
 Entry(root, textvariable=interval_var).grid(row=2, column=1)
 
-# Added VOLUME checkbox to GUI
 volume_checkbox_var = BooleanVar()
 volume_checkbox_var.set(False)
 volume_checkbox = Checkbutton(root, text="Volume", variable=volume_checkbox_var)
 volume_checkbox.grid(row=3, column=0, columnspan=2)
 
-
-def input_data():
-    start_date = start_date_var.get()
-    end_date = end_date_var.get()
-    interval = interval_var.get()
-    # podanie info o zaznaczeniu checkboxa do funkcji stock_market_data
-    stock_market_data(start_date, end_date, interval, volume_checkbox_var.get())
-
-# modyfikacja przycisku wywołujący funkcję input_data
 Button(root, text="Download prices", command=input_data).grid(row=4, column=0, columnspan=2)
 
 root.mainloop()
+
