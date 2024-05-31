@@ -21,23 +21,6 @@ def toggle_date_range_button():
     else:
         hide_date_fields()
 
-
-def set_interval(new_interval):
-    interval_var.set(new_interval)
-    if new_interval == '1d':
-        checkbox_1d.select()
-        checkbox_1wk.deselect()
-        checkbox_1mo.deselect()
-    elif new_interval == '1wk':
-        checkbox_1d.deselect()
-        checkbox_1wk.select()
-        checkbox_1mo.deselect()
-    elif new_interval == '1mo':
-        checkbox_1d.deselect()
-        checkbox_1wk.deselect()
-        checkbox_1mo.select()
-
-
 def show_date_fields():
     start_date_label.grid()
     start_date_entry.grid()
@@ -65,13 +48,9 @@ Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=
 # Section for interval selection
 interval_var = StringVar(value='1d')
 Label(root, text="Interval:").grid(row=2, column=0)
-checkbox_1d = Checkbutton(root, text="1d", variable=interval_var, onvalue='1d', offvalue='', command=lambda: set_interval('1d'))
-checkbox_1d.grid(row=2, column=1)
-checkbox_1wk = Checkbutton(root, text="1wk", variable=interval_var, onvalue='1wk', offvalue='', command=lambda: set_interval('1wk'))
-checkbox_1wk.grid(row=2, column=2)
-checkbox_1mo = Checkbutton(root, text="1mo", variable=interval_var, onvalue='1mo', offvalue='', command=lambda: set_interval('1mo'))
-checkbox_1mo.grid(row=2, column=3)
-checkbox_1d.select()  # default_selection
+Radiobutton(root, text="1d", variable=interval_var, value='1d').grid(row=2, column=1)
+Radiobutton(root, text="1wk", variable=interval_var, value='1wk').grid(row=2, column=2)
+Radiobutton(root, text="1mo", variable=interval_var, value='1mo').grid(row=2, column=3)
 
 # section for specific date range inputs
 start_date_var = StringVar(value='2024-01-01')
