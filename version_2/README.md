@@ -2,24 +2,9 @@
 
 This Python script downloads historical stock data for CD Projekt from the Warsaw Stock Exchange (GPW) using Yahoo Finance API.
 
-## New Features in REV.00B
+## New Features in REV.00A
 
 - Added functionality to display trading volume on the chart (with 00A).
-- Current day added as END DATE when selecting the user's own date range
-- Improved user interface by adding volume checkbox
-(instead of entering from keyboard)
-- By design, at the beginning, the GUI included a choice for the user whether
-they wanted to see the closing price chart for the last week, month and
-quarter (a checkbox allowing only one choice), and there was also a
-"select specific date range" button after clicking, in which a window
-for entering a date range appears, in which the user can select a date
-range (as in the previous code) and a chart is generated on this basis.
-
- !!! TO DO !!
-
-interval selection checkbox does not work after unchecking
-the default one - fix (after selecting an interval other
-than 1d, you cannot change anything - checkboxes are no longer selectable)"
 
 ## Requirements
 
