@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button, StringVar, Checkbutton, BooleanVar, Radiobutton, IntVar
+from tkinter import Tk, Label, Entry, Button, Checkbutton, StringVar, BooleanVar, Radiobutton, IntVar
 from functions import stock_market_data, get_preset_dates
 import datetime
 
@@ -21,11 +21,13 @@ def toggle_date_range_button():
     else:
         hide_date_fields()
 
+
 def show_date_fields():
-    start_date_label.grid()
-    start_date_entry.grid()
-    end_date_label.grid()
-    end_date_entry.grid()
+    start_date_label.grid(row=6, column=0)
+    start_date_entry.grid(row=6, column=1)
+    end_date_label.grid(row=7, column=0)
+    end_date_entry.grid(row=7, column=1)
+    download_button.grid(row=8, column=0, columnspan=2)
 
 
 def hide_date_fields():
@@ -33,6 +35,7 @@ def hide_date_fields():
     start_date_entry.grid_remove()
     end_date_label.grid_remove()
     end_date_entry.grid_remove()
+    download_button.grid(row=6, column=0, columnspan=2)
 
 
 root = Tk()
@@ -53,7 +56,7 @@ Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=3, c
 Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=3, column=2)
 Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=3, column=3)
 
-# section for specific date range inputs
+# Section for specific date range inputs
 start_date_var = StringVar(value='2024-01-01')
 end_date_var = StringVar(value=datetime.datetime.now().strftime('%Y-%m-%d'))
 
@@ -63,15 +66,16 @@ start_date_entry = Entry(root, textvariable=start_date_var)
 end_date_label = Label(root, text="End Date (YYYY-MM-DD):")
 end_date_entry = Entry(root, textvariable=end_date_var)
 
-# initially hide date fields
-hide_date_fields()
-
-# volume checkbox
+# Volume checkbox
 volume_checkbox_var = BooleanVar()
 volume_checkbox_var.set(False)
 Checkbutton(root, text="Display volume", variable=volume_checkbox_var).grid(row=4, column=0, columnspan=2)
 
-# download button
-Button(root, text="Download Prices", command=input_data).grid(row=5, column=0, columnspan=2)
+# Download button
+download_button = Button(root, text="Download Prices", command=input_data)
+download_button.grid(row=5, column=0, columnspan=2)
+
+# Initially hide date fields
+hide_date_fields()
 
 root.mainloop()
