@@ -1,17 +1,9 @@
 from tkinter import Tk, Label, Entry, Button, Checkbutton, StringVar, BooleanVar, Radiobutton, IntVar
-from tkinter import ttk  # Import ttk for Combobox
 from functions import stock_market_data, get_preset_dates
-from wig20_40_data import WIG20, mWIG40  # Import dictionaries with stock data
-
 import datetime
 
+
 def input_data():
-    selected_index = index_var.get()
-    selected_alias = alias_var.get() if custom_alias_var.get() else stock_var.get()
-
-    # Change selected alias according to user choice
-    selected_stock_symbol = WIG20[selected_alias] if selected_index == 1 else mWIG40[selected_alias]
-
     selected_preset = preset_var.get()
     if selected_preset != 4:  # if not specific date range
         start_date, end_date = get_preset_dates(selected_preset)
@@ -20,7 +12,8 @@ def input_data():
         end_date = end_date_var.get()
 
     interval = interval_var.get()
-    stock_market_data(selected_stock_symbol, start_date, end_date, interval, volume_checkbox_var.get(), max_min_checkbox_var.get())
+    stock_market_data(start_date, end_date, interval, volume_checkbox_var.get(), max_min_checkbox_var.get())
+
 
 def toggle_date_range_button():
     if preset_var.get() == 4:
@@ -28,6 +21,7 @@ def toggle_date_range_button():
     else:
         hide_date_fields()
         download_button.grid(row=9, column=0, columnspan=2)  # Move download button to row 6
+
 
 def show_date_fields():
     start_date_label.grid(row=2, column=2)
@@ -37,6 +31,7 @@ def show_date_fields():
 
     download_button.grid(row=9, column=0, columnspan=2)
 
+
 def hide_date_fields():
     start_date_label.grid_remove()
     start_date_entry.grid_remove()
@@ -45,42 +40,17 @@ def hide_date_fields():
 
     download_button.grid(row=9, column=0, columnspan=2)
 
+
 root = Tk()
 root.title("CD Projekt Red Stock Price Data Downloader")
 
-Label(root, text="Wybierz spółkę giełdową z listy:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=2)
-
-# ComboBox for selecting index
-index_var = IntVar(value=1)
-index_combo = ttk.Combobox(root, textvariable=index_var, values=["WIG20", "mWIG40"])
-index_combo.grid(row=0, column=2, columnspan=2)
-
-# Dictionary to store stock symbols based on selected index
-stocks_dict = WIG20 if index_var.get() == 1 else mWIG40
-stocks_list = list(stocks_dict.keys())
-
-# ComboBox for selecting stock
-stock_var = StringVar(value=stocks_list[0])
-stock_combo = ttk.Combobox(root, textvariable=stock_var, values=stocks_list)
-stock_combo.grid(row=1, column=0, columnspan=2)
-
-# Checkbox for entering custom alias
-custom_alias_var = BooleanVar()
-custom_alias_check = Checkbutton(root, text="Wpisz alias spółki giełdowej", font=("Arial", 10), fg="#003366", variable=custom_alias_var)
-custom_alias_check.grid(row=1, column=2, columnspan=2)
-
-# Entry field for custom alias
-alias_var = StringVar(value='CDR.WA')
-alias_entry = Entry(root, textvariable=alias_var)
-alias_entry.grid(row=2, column=0, columnspan=2)
-
 # Section for preset date range options
-Label(root, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=4, column=0, columnspan=4)
+Label(root, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=4)
 preset_var = IntVar(value=2)
-Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=5, column=0)
-Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=5, column=1)
-Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=5, column=2)
-Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=5, column=3)
+Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
+Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
+Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
+Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=3)
 
 # Section for specific date range inputs
 start_date_var = StringVar(value='2024-01-01')
@@ -94,28 +64,26 @@ end_date_entry = Entry(root, textvariable=end_date_var)
 
 # Section for interval selection
 interval_var = StringVar(value='1d')
-Label(root, text="Frequency:", font=("Arial", 11, "bold"), fg="#003366").grid(row=6, column=0, columnspan=4)
-Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=7, column=1, sticky='e')
-Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=7, column=2)
-Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=7, column=3, sticky='w')
+Label(root, text="Frequency:", font=("Arial", 11, "bold"), fg="#003366").grid(row=4, column=0, columnspan=4)
+Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=5, column=1, sticky='e')
+Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=5, column=2)
+Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=5, column=3, sticky='w')
 
 # Volume checkbox
 volume_checkbox_var = BooleanVar()
 volume_checkbox_var.set(False)
 volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10), fg="#003366", variable=volume_checkbox_var)
-volume_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
+volume_checkbox.grid(row=7, column=0, columnspan=2, sticky='w')
 
 # Max/min value checkbox
 max_min_checkbox_var = BooleanVar()
 max_min_checkbox_var.set(False)
 max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 10), fg="#003366", variable=max_min_checkbox_var)
-max_min_checkbox.grid(row=8, column=2, columnspan=2, sticky='w')
+max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
 # Download button
 download_button = Button(root, text="Download Chart", font=("Arial", 10, "bold"), fg="#003366", command=input_data)
-download_button.grid(row=9, column=0, columnspan=2)
-
-Label(root, text="").grid(row=10, column=1)  # Additional empty row
+Label(root, text="").grid(row=11, column=1)  # Additional empty row
 
 # Initially hide date fields and set initial positions
 hide_date_fields()

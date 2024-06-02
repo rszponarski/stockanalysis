@@ -6,15 +6,14 @@ from matplotlib.ticker import FuncFormatter
 from tkinter.messagebox import showerror
 
 
-def stock_market_data(stock_symbol, start_date, end_date, interval, show_volume=False, show_extremes=False):
+def stock_market_data(start_date, end_date, interval, show_volume=False, show_extremes=False):
     try:
         start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
         end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
         start_date_converted = int(time.mktime(start_date.timetuple()))
         end_date_converted = int(time.mktime(end_date.timetuple()))
 
-        # Utworzenie adresu URL z wybranym symbolem spółki
-        url = (f'https://query1.finance.yahoo.com/v7/finance/download/{stock_symbol}?'
+        url = (f'https://query1.finance.yahoo.com/v7/finance/download/CDR.WA?'
                f'period1={start_date_converted}&period2={end_date_converted}&interval={interval}&events=history&includeAdjustedClose=true')
 
         df = pd.read_csv(url)
@@ -35,7 +34,7 @@ def stock_market_data(stock_symbol, start_date, end_date, interval, show_volume=
             ax2.tick_params('y', colors='green')
             ax2.tick_params(axis='x', labelcolor='black')
 
-            # Formatowanie etykiet osi objętości w celu uniknięcia notacji naukowej
+            # Format volume axis labels to avoid scientific notation
             formatter = FuncFormatter(lambda x, _: f'{int(x):,}')
             ax2.yaxis.set_major_formatter(formatter)
 
@@ -45,11 +44,11 @@ def stock_market_data(stock_symbol, start_date, end_date, interval, show_volume=
             max_date = df.loc[df['Close'].idxmax(), 'Date']
             min_date = df.loc[df['Close'].idxmin(), 'Date']
 
-            ax1.plot(max_date, max_value, 'ro')  # Marker maksymalnej wartości
-            ax1.plot(min_date, min_value, 'ro')  # Marker minimalnej wartości
+            ax1.plot(max_date, max_value, 'ro')  # Max value marker
+            ax1.plot(min_date, min_value, 'ro')  # Min value marker
 
-            ax1.text(max_date, max_value, f'{max_value:.2f} PLN', ha='left', va='bottom')  # Tekst dla maksymalnej wartości
-            ax1.text(min_date, min_value, f'{min_value:.2f} PLN', ha='left', va='bottom')  # Tekst dla minimalnej wartości
+            ax1.text(max_date, max_value, f'{max_value:.2f} PLN', ha='left', va='bottom')  # Text for max value
+            ax1.text(min_date, min_value, f'{min_value:.2f} PLN', ha='left', va='bottom')  # Text for min value
 
         plt.title('CD Projekt Red Stock Price')
         ax1.legend(loc='upper left')
@@ -71,4 +70,3 @@ def get_preset_dates(option):
     elif option == 3:  # Last quarter
         start_date = end_date - datetime.timedelta(days=90)
     return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
-
