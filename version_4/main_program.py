@@ -23,11 +23,11 @@ def toggle_date_range_button():
 
 
 def show_date_fields():
-    start_date_label.grid(row=6, column=0)
-    start_date_entry.grid(row=6, column=1)
-    end_date_label.grid(row=7, column=0)
-    end_date_entry.grid(row=7, column=1)
-    download_button.grid(row=8, column=0, columnspan=2)
+    start_date_label.grid(row=5, column=0)
+    start_date_entry.grid(row=5, column=1)
+    end_date_label.grid(row=6, column=0)
+    end_date_entry.grid(row=6, column=1)
+    download_button.grid(row=7, column=0, columnspan=2)
 
 
 def hide_date_fields():
@@ -35,26 +35,26 @@ def hide_date_fields():
     start_date_entry.grid_remove()
     end_date_label.grid_remove()
     end_date_entry.grid_remove()
-    download_button.grid(row=6, column=0, columnspan=2)
+    download_button.grid(row=5, column=1)
 
 
 root = Tk()
 root.title("CD Projekt Red Stock Price Data Downloader")
 
 # Section for preset date range options
-Label(root, text="Select chart range:").grid(row=0, column=0, columnspan=3)
+Label(root, text="Select chart range:").grid(row=0, column=0, columnspan=2, sticky='e', padx=(0, 50))
 preset_var = IntVar(value=1)
 Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
 Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
 Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
-Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=4, columnspan=3)
+Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=3)
 
 # Section for interval selection
-interval_var = StringVar(value='daily')
-Label(root, text="Frequency:").grid(row=3, column=0)
-Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=3, column=1)
-Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=3, column=2)
-Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=3, column=3)
+interval_var = StringVar(value='1d')
+Label(root, text="Frequency:").grid(row=2, column=0, columnspan=2, sticky='e', padx=(0, 50))
+Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=3, column=0, sticky='e')
+Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=3, column=1)
+Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=3, column=2, sticky='w')
 
 # Section for specific date range inputs
 start_date_var = StringVar(value='2024-01-01')
@@ -69,11 +69,11 @@ end_date_entry = Entry(root, textvariable=end_date_var)
 # Volume checkbox
 volume_checkbox_var = BooleanVar()
 volume_checkbox_var.set(False)
-Checkbutton(root, text="Display volume", variable=volume_checkbox_var).grid(row=4, column=0, columnspan=2)
+Checkbutton(root, text="Display volume", variable=volume_checkbox_var).grid(row=4, column=1, sticky='w')
 
 # Download button
 download_button = Button(root, text="Download Prices", command=input_data)
-download_button.grid(row=5, column=0, columnspan=2)
+download_button.grid(row=5, column=1)
 
 # Initially hide date fields
 hide_date_fields()
