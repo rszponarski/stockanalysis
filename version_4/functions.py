@@ -2,6 +2,7 @@ import time
 import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 from tkinter.messagebox import showerror
 
 
@@ -24,12 +25,18 @@ def stock_market_data(start_date, end_date, interval, show_volume=False, show_ex
         ax1.set_xlabel('Date')
         ax1.set_ylabel('Price, PLN', color='blue')
         ax1.tick_params('y', colors='blue')
+        ax1.tick_params(axis='x', labelcolor='black')
 
         if show_volume:
             ax2 = ax1.twinx()
             ax2.bar(df['Date'], df['Volume'], color='green', alpha=0.5, label='Volume')
             ax2.set_ylabel('Volume', color='green')
             ax2.tick_params('y', colors='green')
+            ax2.tick_params(axis='x', labelcolor='black')
+
+            # Format volume axis labels to avoid scientific notation
+            formatter = FuncFormatter(lambda x, _: f'{int(x):,}')
+            ax2.yaxis.set_major_formatter(formatter)
 
         if show_extremes:
             max_value = df['Close'].max()
@@ -44,12 +51,9 @@ def stock_market_data(start_date, end_date, interval, show_volume=False, show_ex
             ax1.text(min_date, min_value, f'{min_value:.2f} PLN', ha='left', va='bottom')  # Text for min value
 
         plt.title('CD Projekt Red Stock Price')
-        lines, labels = ax1.get_legend_handles_labels()
+        ax1.legend(loc='upper left')
         if show_volume:
-            lines2, labels2 = ax2.get_legend_handles_labels()
-            ax1.legend(lines + lines2, labels + labels2, loc='upper left', bbox_to_anchor=(1, 1))
-        else:
-            ax1.legend(loc='upper left', bbox_to_anchor=(1, 1))
+            ax2.legend(loc='upper left', bbox_to_anchor=(0, 0.92))
         plt.grid(True)
 
         plt.show()

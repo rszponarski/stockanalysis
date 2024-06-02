@@ -46,7 +46,7 @@ root.title("CD Projekt Red Stock Price Data Downloader")
 
 # Section for preset date range options
 Label(root, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=4)
-preset_var = IntVar(value=1)
+preset_var = IntVar(value=2)
 Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
 Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
 Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
