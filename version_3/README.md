@@ -15,7 +15,6 @@ quarter (a checkbox allowing only one choice), and there was also a
 for entering a date range appears, in which the user can select a date
 range (as in the previous code) and a chart is generated on this basis.
 
-
 ## Requirements
 
 - Python 3.x
