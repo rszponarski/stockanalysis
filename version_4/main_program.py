@@ -12,7 +12,7 @@ def input_data():
         end_date = end_date_var.get()
 
     interval = interval_var.get()
-    stock_market_data(start_date, end_date, interval, volume_checkbox_var.get())
+    stock_market_data(start_date, end_date, interval, volume_checkbox_var.get(), max_min_checkbox_var.get())
 
 
 def toggle_date_range_button():
@@ -20,7 +20,7 @@ def toggle_date_range_button():
         show_date_fields()
     else:
         hide_date_fields()
-        download_button.grid(row=7, column=0, columnspan=2)  # Move download button to row 7
+        download_button.grid(row=9, column=0, columnspan=2)  # Move download button to row 6
 
 
 def show_date_fields():
@@ -29,8 +29,7 @@ def show_date_fields():
     end_date_label.grid(row=3, column=2)
     end_date_entry.grid(row=3, column=3)
 
-    volume_checkbox.grid(row=6, column=0, columnspan=2)
-    download_button.grid(row=7, column=0, columnspan=2)
+    download_button.grid(row=9, column=0, columnspan=2)
 
 
 def hide_date_fields():
@@ -39,8 +38,7 @@ def hide_date_fields():
     end_date_label.grid_remove()
     end_date_entry.grid_remove()
 
-    volume_checkbox.grid(row=6, column=0, columnspan=2)
-    download_button.grid(row=7, column=0, columnspan=2)
+    download_button.grid(row=9, column=0, columnspan=2)
 
 
 root = Tk()
@@ -74,11 +72,18 @@ Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=5
 # Volume checkbox
 volume_checkbox_var = BooleanVar()
 volume_checkbox_var.set(False)
-volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10 ), fg="#003366", variable=volume_checkbox_var)
+volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10), fg="#003366", variable=volume_checkbox_var)
+volume_checkbox.grid(row=7, column=0, columnspan=2, sticky='w')
+
+# Max/min value checkbox
+max_min_checkbox_var = BooleanVar()
+max_min_checkbox_var.set(False)
+max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 10), fg="#003366", variable=max_min_checkbox_var)
+max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
 # Download button
 download_button = Button(root, text="Download Chart", font=("Arial", 10, "bold"), fg="#003366", command=input_data)
-Label(root, text="").grid(row=8, column=1)  # Additional empty row
+Label(root, text="").grid(row=11, column=1)  # Additional empty row
 
 # Initially hide date fields and set initial positions
 hide_date_fields()

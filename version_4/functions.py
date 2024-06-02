@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tkinter.messagebox import showerror
 
 
-def stock_market_data(start_date, end_date, interval, show_volume=False):
+def stock_market_data(start_date, end_date, interval, show_volume=False, show_extremes=False):
     try:
         start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
         end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
@@ -18,36 +18,44 @@ def stock_market_data(start_date, end_date, interval, show_volume=False):
         df = pd.read_csv(url)
         df['Date'] = pd.to_datetime(df['Date'])
 
+        fig, ax1 = plt.subplots(figsize=(10, 5))
+
+        ax1.plot(df['Date'], df['Close'], label='Close Price', color='blue')
+        ax1.set_xlabel('Date')
+        ax1.set_ylabel('Price, PLN', color='blue')
+        ax1.tick_params('y', colors='blue')
+
         if show_volume:
-            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 6))
+            ax2 = ax1.twinx()
+            ax2.bar(df['Date'], df['Volume'], color='green', alpha=0.5, label='Volume')
+            ax2.set_ylabel('Volume', color='green')
+            ax2.tick_params('y', colors='green')
 
-            ax1.plot(df['Date'], df['Close'], label='Close Price')
-            ax1.set_xlabel('Date')
-            ax1.set_ylabel('Price, PLN')
-            ax1.set_title('CD Projekt Red Stock Price')
-            ax1.legend()
-            ax1.grid(True)
+        if show_extremes:
+            max_value = df['Close'].max()
+            min_value = df['Close'].min()
+            max_date = df.loc[df['Close'].idxmax(), 'Date']
+            min_date = df.loc[df['Close'].idxmin(), 'Date']
 
-            ax2.bar(df['Date'], df['Volume'], color='blue', alpha=0.5, label='Volume')
-            ax2.set_xlabel('Date')
-            ax2.set_ylabel('Volume')
-            ax2.legend()
-            ax2.grid(True)
+            ax1.plot(max_date, max_value, 'ro')  # Max value marker
+            ax1.plot(min_date, min_value, 'ro')  # Min value marker
 
-            plt.tight_layout()
+            ax1.text(max_date, max_value, f'{max_value:.2f} PLN', ha='left', va='bottom')  # Text for max value
+            ax1.text(min_date, min_value, f'{min_value:.2f} PLN', ha='left', va='bottom')  # Text for min value
+
+        plt.title('CD Projekt Red Stock Price')
+        lines, labels = ax1.get_legend_handles_labels()
+        if show_volume:
+            lines2, labels2 = ax2.get_legend_handles_labels()
+            ax1.legend(lines + lines2, labels + labels2, loc='upper left', bbox_to_anchor=(1, 1))
         else:
-            plt.figure(figsize=(10, 5))
-            plt.plot(df['Date'], df['Close'], label='Close Price')
-            plt.xlabel('Date')
-            plt.xticks(rotation=0)
-            plt.ylabel('Price, PLN')
-            plt.title('CD Projekt Red Stock Price')
-            plt.legend()
-            plt.grid(True)
+            ax1.legend(loc='upper left', bbox_to_anchor=(1, 1))
+        plt.grid(True)
 
         plt.show()
     except Exception as exc:
         showerror("Error", str(exc))
+
 
 def get_preset_dates(option):
     end_date = datetime.datetime.now()
