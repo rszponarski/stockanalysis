@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from wig20_40_data import WIG20, mWIG40
+from main_program import open_second_gui  # Importujemy funkcję otwierającą drugie GUI
 
 
 def on_index_selected(event):
@@ -77,14 +78,7 @@ def on_stock_selected(event):
 
 def on_next_button_click():
     print("Next button clicked!")
-    # Open new window
-    new_window = tk.Toplevel(root)
-    new_window.title("Stock Analysis")
-    new_window.geometry("400x300")
-
-    # Example content in the new window
-    tk.Label(new_window, text="Stock Analysis Details", font=("Arial", 14)).pack(pady=10)
-    tk.Label(new_window, text="More information about the stock will be displayed here.", font=("Arial", 12)).pack(pady=5)
+    open_second_gui()  # Otwieramy drugie GUI
 
 
 root = tk.Tk()
