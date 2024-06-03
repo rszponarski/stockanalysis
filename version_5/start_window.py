@@ -77,7 +77,14 @@ def on_stock_selected(event):
 
 def on_next_button_click():
     print("Next button clicked!")
-    # Add code to execute when Next button is clicked
+    # Open new window
+    new_window = tk.Toplevel(root)
+    new_window.title("Stock Analysis")
+    new_window.geometry("400x300")
+
+    # Example content in the new window
+    tk.Label(new_window, text="Stock Analysis Details", font=("Arial", 14)).pack(pady=10)
+    tk.Label(new_window, text="More information about the stock will be displayed here.", font=("Arial", 12)).pack(pady=5)
 
 
 root = tk.Tk()
