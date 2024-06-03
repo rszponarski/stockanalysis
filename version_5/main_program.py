@@ -1,4 +1,4 @@
-from tkinter import Toplevel, Label, Entry, Button, Checkbutton, StringVar, BooleanVar, Radiobutton, IntVar
+from tkinter import Tk, Label, Entry, Button, Checkbutton, StringVar, BooleanVar, Radiobutton, IntVar
 from functions import stock_market_data, get_preset_dates
 import datetime
 
@@ -42,51 +42,51 @@ def open_second_gui():
         download_button.grid(row=9, column=0, columnspan=2)
 
 
-    new_window = Toplevel()
-    new_window.title("CD Projekt Red Stock Price Data Downloader")
+    root = Tk()
+    root.title("CD Projekt Red Stock Price Data Downloader")
 
     # Section for preset date range options
-    Label(new_window, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=4)
+    Label(root, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=4)
     preset_var = IntVar(value=2)
-    Radiobutton(new_window, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
-    Radiobutton(new_window, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
-    Radiobutton(new_window, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
-    Radiobutton(new_window, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=3)
+    Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
+    Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
+    Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
+    Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=3)
 
     # Section for specific date range inputs
     start_date_var = StringVar(value='2024-01-01')
     end_date_var = StringVar(value=datetime.datetime.now().strftime('%Y-%m-%d'))
 
-    start_date_label = Label(new_window, text="Start Date (YYYY-MM-DD):")
-    start_date_entry = Entry(new_window, textvariable=start_date_var)
+    start_date_label = Label(root, text="Start Date (YYYY-MM-DD):")
+    start_date_entry = Entry(root, textvariable=start_date_var)
 
-    end_date_label = Label(new_window, text="End Date (YYYY-MM-DD):")
-    end_date_entry = Entry(new_window, textvariable=end_date_var)
+    end_date_label = Label(root, text="End Date (YYYY-MM-DD):")
+    end_date_entry = Entry(root, textvariable=end_date_var)
 
     # Section for interval selection
     interval_var = StringVar(value='1d')
-    Label(new_window, text="Frequency:", font=("Arial", 11, "bold"), fg="#003366").grid(row=4, column=0, columnspan=4)
-    Radiobutton(new_window, text="daily", variable=interval_var, value='1d').grid(row=5, column=1, sticky='e')
-    Radiobutton(new_window, text="weekly", variable=interval_var, value='1wk').grid(row=5, column=2)
-    Radiobutton(new_window, text="monthly", variable=interval_var, value='1mo').grid(row=5, column=3, sticky='w')
+    Label(root, text="Frequency:", font=("Arial", 11, "bold"), fg="#003366").grid(row=4, column=0, columnspan=4)
+    Radiobutton(root, text="daily", variable=interval_var, value='1d').grid(row=5, column=1, sticky='e')
+    Radiobutton(root, text="weekly", variable=interval_var, value='1wk').grid(row=5, column=2)
+    Radiobutton(root, text="monthly", variable=interval_var, value='1mo').grid(row=5, column=3, sticky='w')
 
     # Volume checkbox
     volume_checkbox_var = BooleanVar()
     volume_checkbox_var.set(False)
-    volume_checkbox = Checkbutton(new_window, text="Display volume", font=("Arial", 10), fg="#003366", variable=volume_checkbox_var)
+    volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10), fg="#003366", variable=volume_checkbox_var)
     volume_checkbox.grid(row=7, column=0, columnspan=2, sticky='w')
 
     # Max/min value checkbox
     max_min_checkbox_var = BooleanVar()
     max_min_checkbox_var.set(False)
-    max_min_checkbox = Checkbutton(new_window, text="Show max/min value", font=("Arial", 10), fg="#003366", variable=max_min_checkbox_var)
+    max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 10), fg="#003366", variable=max_min_checkbox_var)
     max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
     # Download button
-    download_button = Button(new_window, text="Download Chart", font=("Arial", 10, "bold"), fg="#003366", command=input_data)
-    Label(new_window, text="").grid(row=11, column=1)  # Additional empty row
+    download_button = Button(root, text="Download Chart", font=("Arial", 10, "bold"), fg="#003366", command=input_data)
+    Label(root, text="").grid(row=11, column=1)  # Additional empty row
 
     # Initially hide date fields and set initial positions
     hide_date_fields()
 
-    new_window.mainloop()
+    root.mainloop()

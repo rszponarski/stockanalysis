@@ -78,7 +78,8 @@ def on_stock_selected(event):
 
 def on_next_button_click():
     print("Next button clicked!")
-    open_second_gui()  # Otwieramy drugie GUI
+    root.destroy()  # Zamykanie głównego okna przed otwarciem nowego
+    open_second_gui()  # Otwieranie drugiego GUI
 
 
 root = tk.Tk()
