@@ -8,8 +8,8 @@ def open_second_gui(selected_index, selected_stock):
         if selected_preset != 4:  # if not specific date range
             start_date, end_date = get_preset_dates(selected_preset)
         else:  # if specific date range
-            start_date = start_date_var.get()
-            end_date = end_date_var.get()
+            start_date = datetime.datetime.strptime(start_date_var.get(), '%Y-%m-%d')
+            end_date = datetime.datetime.strptime(end_date_var.get(), '%Y-%m-%d')
 
         interval = interval_var.get()
         stock_market_data(selected_stock, start_date, end_date, interval, volume_checkbox_var.get(), max_min_checkbox_var.get())
