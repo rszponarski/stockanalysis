@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from wig20_40_data import WIG20, mWIG40
-from main_program import open_second_gui  # Importujemy funkcję otwierającą drugie GUI
+from main_program import open_second_gui  # Import a function that opens the second GUI
 from functions import stock_market_data, get_preset_dates
 
 
@@ -21,7 +21,7 @@ def on_index_selected(event):
 def display_stock_selection(stock_dict):
     global stock_combobox
     # Display "Choose stock" label
-    stock_label = tk.Label(root, text="Choose a stock:", font=("Arial", 12))
+    stock_label = tk.Label(root, text="Choose a stock:", font=("Arial", 14, 'bold'), fg="#003366")
     stock_label.pack(pady=5)
 
     # Combobox for choosing stock
@@ -54,8 +54,8 @@ def on_stock_selected(event):
 def on_next_button_click():
     selected_index = index_var.get()
     print("Next button clicked with index:", selected_index, "and stock:", selected_stock)
-    root.destroy()  # Zamykanie głównego okna przed otwarciem nowego
-    open_second_gui(selected_index, selected_stock)  # Otwieranie drugiego GUI z przekazanymi wartościami
+    root.destroy()  # Closing the main window before opening a new one
+    open_second_gui(selected_index, selected_stock)  # Opening a second GUI - passing user selections
 
 root = tk.Tk()
 root.title("Stock Analysis Program")
@@ -64,7 +64,7 @@ root.title("Stock Analysis Program")
 stock_widgets = []
 
 # Welcome message
-welcome_label = tk.Label(root, text="Welcome to the stock technical analysis program!", font=("Arial", 14))
+welcome_label = tk.Label(root, text="Welcome to the stock technical analysis program!", font=("Arial", 14, 'italic'), fg="#003366")
 welcome_label.pack(pady=10)
 
 # Explanation
@@ -72,7 +72,7 @@ explanation_label = tk.Label(root, text="This application allows you to perform 
                                         "companies from the Warsaw Stock Exchange Index.", font=("Arial", 12))
 explanation_label.pack(pady=10)
 
-explanation_label = tk.Label(root, text="Let's get started!", font=("Arial", 14))
+explanation_label = tk.Label(root, text="Let's get started!", font=("Arial", 14, 'bold'), fg="#003366")
 explanation_label.pack(pady=1)
 
 # Instructions
@@ -88,7 +88,7 @@ index_combobox.pack(pady=5)
 index_combobox.bind("<<ComboboxSelected>>", on_index_selected)
 
 # Next button
-next_button = tk.Button(root, text="Next", command=on_next_button_click, font=("Arial", 12), width=10)
+next_button = tk.Button(root, text="Next", command=on_next_button_click, font=("Arial", 14, 'bold'), fg="#003366", bg="#E0E0E0", bd=5, width=10)
 next_button.pack_forget()  # Hide the Next button initially
 
 root.mainloop()

@@ -82,7 +82,7 @@ max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 1
 max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
 # Download button
-download_button = Button(root, text="Download Chart", font=("Arial", 10, "bold"), fg="#003366", command=input_data)
+download_button = Button(root, text="Download Chart", font=("Arial", 12, "bold"), fg="#003366", command=input_data)
 Label(root, text="").grid(row=11, column=1)  # Additional empty row
 
 # Initially hide date fields and set initial positions

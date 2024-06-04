@@ -9,15 +9,8 @@ from wig20_40_data import WIG20, mWIG40  # Importujemy słowniki z aliasami spó
 
 def stock_market_data(selected_stock, start_date, end_date, interval, show_volume=False, show_extremes=False):
     try:
-        # Konwersja dat do obiektów datetime
-        if interval == '1d':
-            start_date = start_date.strftime('%Y-%m-%d')
-            end_date = end_date.strftime('%Y-%m-%d')
-        elif interval == '1wk':
-            start_date = (end_date - datetime.timedelta(weeks=1)).strftime('%Y-%m-%d')
-        elif interval == '1mo':
-            start_date = (end_date - datetime.timedelta(days=30)).strftime('%Y-%m-%d')
-
+        start_date = start_date.strftime('%Y-%m-%d')
+        end_date = end_date.strftime('%Y-%m-%d')
         start_date_converted = int(time.mktime(datetime.datetime.strptime(start_date, '%Y-%m-%d').timetuple()))
         end_date_converted = int(time.mktime(datetime.datetime.strptime(end_date, '%Y-%m-%d').timetuple()))
 
