@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from wig20_40_data import WIG20, mWIG40
 from main_program import open_second_gui  # Importujemy funkcję otwierającą drugie GUI
+from functions import stock_market_data, get_preset_dates
+
 
 def on_index_selected(event):
     selected_index = index_var.get()
@@ -17,6 +19,7 @@ def on_index_selected(event):
         display_stock_selection(mWIG40)
 
 def display_stock_selection(stock_dict):
+    global stock_combobox
     # Display "Choose stock" label
     stock_label = tk.Label(root, text="Choose a stock:", font=("Arial", 12))
     stock_label.pack(pady=5)
@@ -41,6 +44,7 @@ def clear_stock_widgets():
     stock_widgets.clear()
 
 def on_stock_selected(event):
+    global selected_stock
     selected_stock = event.widget.get()
     print("Selected stock:", selected_stock)
     # Display the Next button after selecting a stock
@@ -48,9 +52,10 @@ def on_stock_selected(event):
     next_button.pack(side="bottom")  # Place the Next button at the bottom
 
 def on_next_button_click():
-    print("Next button clicked!")
+    selected_index = index_var.get()
+    print("Next button clicked with index:", selected_index, "and stock:", selected_stock)
     root.destroy()  # Zamykanie głównego okna przed otwarciem nowego
-    open_second_gui()  # Otwieranie drugiego GUI
+    open_second_gui(selected_index, selected_stock)  # Otwieranie drugiego GUI z przekazanymi wartościami
 
 root = tk.Tk()
 root.title("Stock Analysis Program")

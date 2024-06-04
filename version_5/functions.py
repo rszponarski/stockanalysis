@@ -4,16 +4,33 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from tkinter.messagebox import showerror
+from wig20_40_data import WIG20, mWIG40  # Importujemy słowniki z aliasami spółek
 
 
-def stock_market_data(start_date, end_date, interval, show_volume=False, show_extremes=False):
+def stock_market_data(selected_stock, start_date, end_date, interval, show_volume=False, show_extremes=False):
     try:
-        start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-        end_date = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-        start_date_converted = int(time.mktime(start_date.timetuple()))
-        end_date_converted = int(time.mktime(end_date.timetuple()))
+        # Konwersja dat do obiektów datetime
+        if interval == '1d':
+            start_date = start_date.strftime('%Y-%m-%d')
+            end_date = end_date.strftime('%Y-%m-%d')
+        elif interval == '1wk':
+            start_date = (end_date - datetime.timedelta(weeks=1)).strftime('%Y-%m-%d')
+        elif interval == '1mo':
+            start_date = (end_date - datetime.timedelta(days=30)).strftime('%Y-%m-%d')
 
-        url = (f'https://query1.finance.yahoo.com/v7/finance/download/CDR.WA?'
+        start_date_converted = int(time.mktime(datetime.datetime.strptime(start_date, '%Y-%m-%d').timetuple()))
+        end_date_converted = int(time.mktime(datetime.datetime.strptime(end_date, '%Y-%m-%d').timetuple()))
+
+        # Uzyskanie aliasu spółki na podstawie wyboru użytkownika
+        if selected_stock in WIG20:
+            alias = WIG20[selected_stock]
+        elif selected_stock in mWIG40:
+            alias = mWIG40[selected_stock]
+        else:
+            raise ValueError("Selected stock not found in WIG20 or mWIG40 dictionary.")
+
+        # Utworzenie URL z wybranym aliasem spółki
+        url = (f'https://query1.finance.yahoo.com/v7/finance/download/{alias}?'
                f'period1={start_date_converted}&period2={end_date_converted}&interval={interval}&events=history&includeAdjustedClose=true')
 
         df = pd.read_csv(url)
@@ -50,7 +67,7 @@ def stock_market_data(start_date, end_date, interval, show_volume=False, show_ex
             ax1.text(max_date, max_value, f'{max_value:.2f} PLN', ha='left', va='bottom')  # Text for max value
             ax1.text(min_date, min_value, f'{min_value:.2f} PLN', ha='left', va='bottom')  # Text for min value
 
-        plt.title('CD Projekt Red Stock Price')
+        plt.title(f'{selected_stock} Stock Price')
         ax1.legend(loc='upper left')
         if show_volume:
             ax2.legend(loc='upper left', bbox_to_anchor=(0, 0.92))
@@ -69,4 +86,5 @@ def get_preset_dates(option):
         start_date = end_date - datetime.timedelta(days=30)
     elif option == 3:  # Last quarter
         start_date = end_date - datetime.timedelta(days=90)
-    return start_date.strftime('%Y-%m-%d'), end_date.strftime('%Y-%m-%d')
+
+    return start_date, end_date
