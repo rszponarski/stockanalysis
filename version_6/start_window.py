@@ -3,6 +3,7 @@ from tkinter import ttk
 from wig20_40_data import WIG20, mWIG40
 from main_program import open_second_gui  # Importujemy funkcję otwierającą drugie GUI
 
+
 def on_index_selected(event):
     selected_index = index_var.get()
     print("Selected index:", selected_index)
@@ -15,6 +16,10 @@ def on_index_selected(event):
 
     elif selected_index == "mWIG40":
         display_stock_selection(mWIG40)
+
+    elif selected_index == "enter the name manually":
+        display_manual_entry()
+
 
 def display_stock_selection(stock_dict):
     # Display "Choose stock" label
@@ -33,12 +38,35 @@ def display_stock_selection(stock_dict):
     stock_widgets.append(stock_label)
     stock_widgets.append(stock_combobox)
 
+
+def display_manual_entry():
+    # Display entry label
+    entry_label = tk.Label(root, text="Enter stock alias (e.g., CDR.WA):", font=("Arial", 12))
+    entry_label.pack(pady=5)
+
+    # Entry for manual input
+    manual_entry_var = tk.StringVar(value="CDR.WA")  # Default value
+    manual_entry = tk.Entry(root, textvariable=manual_entry_var)
+    manual_entry.pack(pady=5)
+
+    # Information about stock alias
+    info_label = tk.Label(root, text="NOTE: Enter the stock alias according to international standard.\n"
+                                     "e.g. for CD Projekt S.A.: CDR.WA", font=("Arial", 10))
+    info_label.pack(pady=1)
+
+    # Store reference to stock selection widgets
+    stock_widgets.append(entry_label)
+    stock_widgets.append(manual_entry)
+    stock_widgets.append(info_label)
+
+
 def clear_stock_widgets():
     # Destroy all previous stock selection widgets
     for widget in stock_widgets:
         widget.destroy()
     # Clear the list of stock selection widgets
     stock_widgets.clear()
+
 
 def on_stock_selected(event):
     selected_stock = event.widget.get()
@@ -47,10 +75,12 @@ def on_stock_selected(event):
     next_button.pack_forget()  # Hide the Next button if it was previously visible
     next_button.pack(side="bottom")  # Place the Next button at the bottom
 
+
 def on_next_button_click():
     print("Next button clicked!")
     root.destroy()  # Zamykanie głównego okna przed otwarciem nowego
     open_second_gui()  # Otwieranie drugiego GUI
+
 
 root = tk.Tk()
 root.title("Stock Analysis Program")
@@ -76,7 +106,8 @@ instruction_label.pack(pady=1)
 
 # Combobox for choosing index
 index_var = tk.StringVar()
-index_combobox = ttk.Combobox(root, textvariable=index_var, values=["WIG20", "mWIG40"], width=22)
+index_combobox = ttk.Combobox(root, textvariable=index_var, values=["WIG20", "mWIG40", "enter the name manually"],
+                              width=22)
 index_combobox.pack(pady=5)
 
 # Bind event to combobox selection
