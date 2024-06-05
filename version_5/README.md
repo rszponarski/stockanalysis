@@ -1,21 +1,16 @@
-# CD Projekt Stock Data Downloader
+# Stock Analysis Program
 
-This Python script downloads historical stock data for CD Projekt from the Warsaw Stock Exchange (GPW) using Yahoo Finance API.
+The Stock Analysis Program is a GUI-based application that allows users to perform technical
+analysis of companies listed on the Warsaw Stock Exchange (WIG20 and mWIG40). Users can 
+select a stock, choose a date range and interval for the data, and visualize stock prices 
+with additional options for volume and extreme values.
 
-## New Features in REV.00C
+## Features
 
-- Added functionality to display trading volume on the chart (with 00A).
-- Current day added as END DATE when selecting the user's own date range (with 00B).
-- Improved user interface by adding volume checkbox (instead of entering from keyboard)
-(with 00B).
-- By design, at the beginning, the GUI included a choice for the user whether they wanted
-to see the closing price chart for the last week, month, and quarter (a checkbox allowing
-only one choice), and there was also a "select specific date range" button after clicking,
-in which a window for entering a date range appears, in which the user can select a date range
-(as in the previous code) and a chart is generated on this basis (with 00B).
-- Added functionality to display maximum and minimum stock prices on the chart,
-marked with dots and labeled with the value in PLN.
-- Changed font sizes and colors of some labels to enhance GUI readability for users.
+- Select a stock from WIG20 / mWIG40 indices.
+- Choose a date range (last week, last month, last quarter, or a specific date range).
+- Select data frequency (daily, weekly, monthly).
+- Display stock price charts with options to show volume and highlight maximum/minimum prices.
 
 ## Requirements
 
@@ -27,19 +22,17 @@ marked with dots and labeled with the value in PLN.
 ## Installation
 
 1. Clone the repository:
-
     ```sh
-    git clone https://github.com/rszponarski/stockanalysis.git
+   git clone https://github.com/rszponarski/stockanalysis.git
+   cd stockanalysis
     ```
 
 2. Navigate to the directory:
-
     ```sh
-    cd stockanalysis/version_2
+    cd stockanalysis/version_5
     ```
 
 3. Install dependencies:
-
     ```sh
     pip install -r requirements.txt
     ```
@@ -47,12 +40,24 @@ marked with dots and labeled with the value in PLN.
 ## Usage
 
 1. Run the script:
-
     ```sh
-    python main_program.py
+    python start_window.py
+
     ```
+2. Follow the on-screen instructions:
 
-2. Enter the start date, end date, and interval (1d, 1wk, 1mo) in the GUI window.
+- Select the index (WIG20 or mWIG40).
+- Choose a stock from the selected index.
+- Click "Next" to proceed to the second window.
 
-3. Click on the "Download prices" button to download and visualize the stock data.
+- Select the date range and interval.
+- Optionally, choose to display volume and maximum/minimum values.
+- Click "Download Chart" to visualize the stock price data.
+
+# Project Structure
+- start_window.py: Main GUI for selecting the index and stock.
+- main_program.py: Second GUI for selecting date range, interval, and additional options.
+- functions.py: Contains functions for fetching and visualizing stock market data.
+- wig20_40_data.py: Contains dictionaries for WIG20 and mWIG40 stocks with their respective Yahoo Finance symbols.
+
 
