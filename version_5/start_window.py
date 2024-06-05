@@ -18,6 +18,7 @@ def on_index_selected(event):
     elif selected_index == "mWIG40":
         display_stock_selection(mWIG40)
 
+
 def display_stock_selection(stock_dict):
     global stock_combobox
     # Display "Choose stock" label
@@ -36,12 +37,14 @@ def display_stock_selection(stock_dict):
     stock_widgets.append(stock_label)
     stock_widgets.append(stock_combobox)
 
+
 def clear_stock_widgets():
     # Destroy all previous stock selection widgets
     for widget in stock_widgets:
         widget.destroy()
     # Clear the list of stock selection widgets
     stock_widgets.clear()
+
 
 def on_stock_selected(event):
     global selected_stock
@@ -51,11 +54,13 @@ def on_stock_selected(event):
     next_button.pack_forget()  # Hide the Next button if it was previously visible
     next_button.pack(side="bottom")  # Place the Next button at the bottom
 
+
 def on_next_button_click():
     selected_index = index_var.get()
     print("Next button clicked with index:", selected_index, "and stock:", selected_stock)
     root.destroy()  # Closing the main window before opening a new one
-    open_second_gui(selected_index, selected_stock)  # Opening a second GUI - passing user selections
+    open_second_gui(selected_index, selected_stock)
+    # Opening a second GUI - passing user selections
 
 root = tk.Tk()
 root.title("Stock Analysis Program")
