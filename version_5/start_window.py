@@ -62,6 +62,7 @@ def on_next_button_click():
     open_second_gui(selected_index, selected_stock)
     # Opening a second GUI - passing user selections
 
+
 root = tk.Tk()
 root.title("Stock Analysis Program")
 
@@ -69,7 +70,8 @@ root.title("Stock Analysis Program")
 stock_widgets = []
 
 # Welcome message
-welcome_label = tk.Label(root, text="Welcome to the stock technical analysis program!", font=("Arial", 14, 'italic'), fg="#003366")
+welcome_label = tk.Label(root, text="Welcome to the stock technical analysis program!", font=("Arial", 14, 'italic'),
+                         fg="#003366")
 welcome_label.pack(pady=10)
 
 # Explanation
@@ -93,7 +95,8 @@ index_combobox.pack(pady=5)
 index_combobox.bind("<<ComboboxSelected>>", on_index_selected)
 
 # Next button
-next_button = tk.Button(root, text="Next", command=on_next_button_click, font=("Arial", 14, 'bold'), fg="#003366", bg="#E0E0E0", bd=5, width=10)
+next_button = tk.Button(root, text="Next", command=on_next_button_click, font=("Arial", 14, 'bold'), fg="#003366",
+                        bg="#E0E0E0", bd=5, width=10)
 next_button.pack_forget()  # Hide the Next button initially
 
 root.mainloop()
