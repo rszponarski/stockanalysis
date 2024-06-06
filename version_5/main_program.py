@@ -50,7 +50,7 @@ def open_second_gui(selected_index, selected_stock):
     # Section for preset date range options
     Label(root, text="Select chart range:", font=("Arial", 11, "bold"), fg="#003366").grid(row=0, column=0, columnspan=4)
     preset_var = IntVar(value=2)
-    Radiobutton(root, text="Last Week", variable=preset_var, value=1, command=toggle_date_range_button).grid(row=1, column=0)
+    Radiobutton(root, text="Last Week", variable=preset_var, value=1,command=toggle_date_range_button).grid(row=1, column=0)
     Radiobutton(root, text="Last Month", variable=preset_var, value=2, command=toggle_date_range_button).grid(row=1, column=1)
     Radiobutton(root, text="Last Quarter", variable=preset_var, value=3, command=toggle_date_range_button).grid(row=1, column=2)
     Radiobutton(root, text="Select Specific Date Range", variable=preset_var, value=4, command=toggle_date_range_button).grid(row=1, column=3)
@@ -75,13 +75,15 @@ def open_second_gui(selected_index, selected_stock):
     # Volume checkbox
     volume_checkbox_var = BooleanVar()
     volume_checkbox_var.set(False)
-    volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10), fg="#003366", variable=volume_checkbox_var)
+    volume_checkbox = Checkbutton(root, text="Display volume", font=("Arial", 10), fg="#003366",
+                                  variable=volume_checkbox_var)
     volume_checkbox.grid(row=7, column=0, columnspan=2, sticky='w')
 
     # Max/min value checkbox
     max_min_checkbox_var = BooleanVar()
     max_min_checkbox_var.set(False)
-    max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 10), fg="#003366", variable=max_min_checkbox_var)
+    max_min_checkbox = Checkbutton(root, text="Show max/min value", font=("Arial", 10), fg="#003366",
+                                   variable=max_min_checkbox_var)
     max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
     # Download button
