@@ -1,33 +1,31 @@
 # WIG20 dictionary
 WIG20 = {
-    'Orlen S.A.': 'PKN.WA',
-    'CD Projekt S.A.': 'CDR.WA',
     'Alior Bank S.A.': 'ALR.WA',
-    'Bank Polska Kasa Opieki S.A.': 'PEO.WA',
-    'Bank Pekao S.A.': 'PEO.WA',
-    'CCC S.A.': 'CCC.WA',
+    'Allegro S.A.': 'ALE.WA',
+    'Budimex S.A.': 'BDX.WA',
+    'CD Projekt S.A.': 'CDR.WA',
     'Cyfrowy Polsat S.A.': 'CPS.WA',
-    'Grupa Lotos S.A.': 'LTS.WA',
+    'Dino Polska S.A.': 'DNP.WA',
     'Jastrzębska Spółka Węglowa S.A.': 'JSW.WA',
+    'Grupa Kety S.A.': 'KTY.WA',
     'KGHM Polska Miedź S.A.': 'KGH.WA',
+    'Kruk S.A.': 'KRU.WA',
     'LPP S.A.': 'LPP.WA',
     'MBank S.A.': 'MBK.WA',
     'Orange Polska S.A.': 'OPL.WA',
+    'Bank Polska Kasa Opieki S.A.': 'PEO.WA',
+    'Pepco Group S.A.': 'PCO.WA',
     'PGE Polska Grupa Energetyczna S.A.': 'PGE.WA',
     'PKN Orlen S.A.': 'PKN.WA',
+    'PKO Bank Polski S.A.': 'PKO.WA',
     'PZU S.A.': 'PZU.WA',
-    'Santander Bank Polska S.A.': 'SPL.WA',
-    'Tauron Polska Energia S.A.': 'TPE.WA',
-    'Bank Handlowy w Warszawie S.A.': 'CMB.WA',
-    'PKO Bank Polski S.A.': 'PKO.WA'
+    'Santander Bank Polska S.A.': 'SPL.WA'
 }
 
 # mWIG40 dictionary
 mWIG40 = {
     '11 bit studios S.A.': '11B.WA',
     'AB S.A.': 'ABE.WA',
-    'ABK SA': 'ABK.WA',
-    'AC SA': 'ACC.WA',
     'Aforti Holding S.A.': 'AFH.WA',
     'Agroton PLC': 'AGT.WA',
     'Aliplast spółka z ograniczoną odpowiedzialnością': 'ALP.WA',
