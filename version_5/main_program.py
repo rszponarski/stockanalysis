@@ -87,7 +87,8 @@ def open_second_gui(selected_index, selected_stock):
     max_min_checkbox.grid(row=8, column=0, columnspan=2, sticky='w')
 
     # Download button
-    download_button = Button(root, text="Download Chart", font=("Arial", 12, "bold"), fg="#003366",  bg="#E0E0E0", bd=5, command=input_data)
+    download_button = Button(root, text="Download Chart", font=("Arial", 12, "bold"), fg="#003366",  bg="#E0E0E0",
+                             bd=5, command=input_data)
     download_button.grid(row=9, column=0, columnspan=2)
     Label(root, text="").grid(row=11, column=1)  # Additional empty row
 
