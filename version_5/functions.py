@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from tkinter.messagebox import showerror
-from wig20_40_data import WIG20, mWIG40  # Importujemy słowniki z aliasami spółek
+from wig20_40_data import WIG20, mWIG40  # Import of dictionaries with company aliases
 
 
 def stock_market_data(selected_stock, start_date, end_date, interval, show_volume=False, show_extremes=False):
@@ -14,7 +14,7 @@ def stock_market_data(selected_stock, start_date, end_date, interval, show_volum
         start_date_converted = int(time.mktime(datetime.datetime.strptime(start_date, '%Y-%m-%d').timetuple()))
         end_date_converted = int(time.mktime(datetime.datetime.strptime(end_date, '%Y-%m-%d').timetuple()))
 
-        # Uzyskanie aliasu spółki na podstawie wyboru użytkownika
+        # Obtaining a company alias based on the user's selection
         if selected_stock in WIG20:
             alias = WIG20[selected_stock]
         elif selected_stock in mWIG40:
@@ -22,7 +22,7 @@ def stock_market_data(selected_stock, start_date, end_date, interval, show_volum
         else:
             raise ValueError("Selected stock not found in WIG20 or mWIG40 dictionary.")
 
-        # Utworzenie URL z wybranym aliasem spółki
+        # Creating a URL with the selected company alias
         url = (f'https://query1.finance.yahoo.com/v7/finance/download/{alias}?'
                f'period1={start_date_converted}&period2={end_date_converted}&interval={interval}&events=history&includeAdjustedClose=true')
 

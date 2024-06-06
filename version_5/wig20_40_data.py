@@ -40,7 +40,6 @@ mWIG40 = {
     'Bakoma S.A.': 'BKM.WA',
     'Benefit Systems S.A.': 'BFT.WA',
     'Bioton S.A.': 'BIO.WA',
-    'BNP Paribas Polska S.A.': 'BPS.WA',
     'Boryszew S.A.': 'BRS.WA',
     'Braster S.A.': 'BRC.WA',
     'Budimex S.A.': 'BDX.WA',
