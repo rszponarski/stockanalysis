@@ -2,6 +2,7 @@ from tkinter import Tk, Label, Entry, Button, Checkbutton, StringVar, BooleanVar
 from functions import stock_market_data, get_preset_dates
 import datetime
 
+
 def open_second_gui(selected_index, selected_stock):
     def input_data():
         selected_preset = preset_var.get()
@@ -12,7 +13,8 @@ def open_second_gui(selected_index, selected_stock):
             end_date = datetime.datetime.strptime(end_date_var.get(), '%Y-%m-%d')
 
         interval = interval_var.get()
-        stock_market_data(selected_stock, start_date, end_date, interval, volume_checkbox_var.get(), max_min_checkbox_var.get())
+        stock_market_data(selected_stock, start_date, end_date, interval, volume_checkbox_var.get(),
+                          max_min_checkbox_var.get())
 
     def toggle_date_range_button():
         if preset_var.get() == 4:
